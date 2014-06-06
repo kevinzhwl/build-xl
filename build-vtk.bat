@@ -1,44 +1,40 @@
 @call build-vars.bat
 
 @echo build vtk start...
-set SRCDIR=../VTK-5.8.0
+@set SRCDIR=../VTK-5.8.0
+@set CL_PARAM=-DMSVC90=1 -DCMAKE_MAKE_PROGRAM:PATH="%VCINSTALLDIR%\bin\nmake.exe" 
+@set INS_PARAM=-DCMAKE_INSTALL_PREFIX:PATH="%~dp0deploy\vtk"
+@set CBD_PARAM=-DCMAKE_BUILD_TYPE=Release
+@set BD_PARAM=
+@set MD_PARAM=
 
 @if "%1"=="release" (
-	@call :BuildvtkReleaseVer
+	@set BD_DIR=build-vtk-cmake.release
+	@set CBD_PARAM=-DCMAKE_BUILD_TYPE=Release
+	@call :BuildJob
 )
 @if "%1"=="debug" (
-	@call :BuildvtkDebugVer
+	@set BD_DIR=build-vtk-cmake.debug
+	@set CBD_PARAM=-DCMAKE_BUILD_TYPE=Debug
+	@call :BuildJob
 )
 
+@echo build vtk end...
 @goto end
 
 @REM -----------------------------------------------------------------------
-:BuildvtkReleaseVer
-@mkdir build-vtk-cmake.release
-cd build-vtk-cmake.release
-cmake.exe -DMSVC90=1 -DCMAKE_MAKE_PROGRAM:PATH="%VCINSTALLDIR%\bin\nmake.exe" "%SRCDIR%" -G "NMake Makefiles" -DCMAKE_INSTALL_PREFIX:PATH="%~dp0deploy\vtk" -DCMAKE_BUILD_TYPE=Release
+:BuildJob
+@rmdir /s/q %BD_DIR%
+@mkdir %BD_DIR%
+cd %BD_DIR%
+
+cmake.exe %CL_PARAM% "%SRCDIR%" -G "NMake Makefiles" %INS_PARAM% %CBD_PARAM% %BD_PARAM% %MD_PARAM%
 @jom.exe
 @jom.exe install
-@echo build and install finished
  
 @cd ..
-@rmdir /s/q build-vtk-cmake.release
+@rmdir /s/q %BD_DIR%
 @exit /B 0
 
 @REM -----------------------------------------------------------------------
-:BuildvtkDebugVer
-@mkdir build-vtk-cmake.debug
-@cd build-vtk-cmake.debug
-
-@cmake.exe -DMSVC90=1 -DCMAKE_MAKE_PROGRAM:PATH="%VCINSTALLDIR%\bin\nmake.exe" "%SRCDIR%" -G "NMake Makefiles" -DCMAKE_INSTALL_PREFIX:PATH="%~dp0deploy\vtk" -DCMAKE_BUILD_TYPE=Debug
-@jom.exe
-@jom.exe install
-@echo build.debug and install finished
- 
-@cd ..
-@rmdir /s/q build-vtk-cmake.debug
-@exit /B 0
-
-@echo build vtk end...
-
 :end
