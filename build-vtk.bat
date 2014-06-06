@@ -14,6 +14,7 @@
 	@set CBD_PARAM=-DCMAKE_BUILD_TYPE=Release
 	@call :BuildJob
 )
+
 @if "%1"=="debug" (
 	@set BD_DIR=build-vtk-cmake.debug
 	@set CBD_PARAM=-DCMAKE_BUILD_TYPE=Debug -DCMAKE_DEBUG_POSTFIX="-gd" -D_BIND_TO_CURRENT_VCLIBS_VERSION=1

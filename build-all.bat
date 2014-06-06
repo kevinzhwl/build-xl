@@ -39,7 +39,8 @@
 	@call build-boost.bat debmini
 	@call build-vtk.bat debmini
 )
-goto end
+
+@goto end
 
 :end
 @echo build all(cmake) finished
