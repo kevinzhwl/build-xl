@@ -1,3 +1,18 @@
+#
+build-*/
+*-build/
+
+boost-*/
+boost_*/
+
+[Vv]tk-*/
+VTK-*/
+flann-*/
+eigen-*/
+qhull-*/
+deploy*/
+mpich-*/
+
 # Compiled Object files
 *.slo
 *.lo
