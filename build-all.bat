@@ -7,7 +7,7 @@
 	@call build-qhull.bat release
 	@call build-eigen.bat release
 	@call build-boost.bat 
-	@call build-vtk.bat debug
+	@REM call build-vtk.bat debug
 	@call build-vtk.bat release
 )
 

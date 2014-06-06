@@ -42,8 +42,8 @@
 :BuildJob
 @rmdir /s/q %BD_DIR%
 @mkdir %BD_DIR%
-cd %BD_DIR%
-cmake.exe %CL_PARAM% "%SRCDIR%" -G "NMake Makefiles" %INS_PARAM% %CBD_PARAM% %BD_PARAM% %MD_PARAM%
+@cd %BD_DIR%
+@cmake.exe %CL_PARAM% "%SRCDIR%" -G "NMake Makefiles" %INS_PARAM% %CBD_PARAM% %BD_PARAM% %MD_PARAM%
 @jom.exe
 @jom.exe install
  

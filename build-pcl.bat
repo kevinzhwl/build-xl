@@ -36,9 +36,9 @@
 :Buildpcl
 @rmdir /s/q %BD_DIR%
 @mkdir %BD_DIR%
-cd %BD_DIR%
-cmake.exe %CL_PARAM% "%SRCDIR%" -G "NMake Makefiles" %PCL_PARAM% %DP_PARAM% %BD_PARAM% %BT_PARAM%
-cmake.exe %CL_PARAM% "%SRCDIR%" -G "NMake Makefiles" %PCL_PARAM% %DP_PARAM% %BD_PARAM% %BT_PARAM%
+@cd %BD_DIR%
+@cmake.exe %CL_PARAM% "%SRCDIR%" -G "NMake Makefiles" %PCL_PARAM% %DP_PARAM% %BD_PARAM% %BT_PARAM%
+@cmake.exe %CL_PARAM% "%SRCDIR%" -G "NMake Makefiles" %PCL_PARAM% %DP_PARAM% %BD_PARAM% %BT_PARAM%
 @jom.exe
 @jom.exe install
  
