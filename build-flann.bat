@@ -2,9 +2,19 @@
 
 @echo build flann start...
 
-@set SRCDIR=../flann-1.7.1
+@if "%XL_DEPLOY_FLANN_DIR%" =="" (
+    @echo XL_DEPLOY_EIGEN_DIR is empty
+    @goto end
+)
+
+@if not exist "%XL_FLANN_DIR%" (
+    @echo XL_EIGEN_DIR is not existed
+    @goto end
+)
+
+@set SRCDIR=%XL_FLANN_DIR%
 @set CL_PARAM=-DMSVC90=1 -DCMAKE_MAKE_PROGRAM:PATH="%VCINSTALLDIR%\bin\nmake.exe" 
-@set INS_PARAM=-DCMAKE_INSTALL_PREFIX:PATH="%~dp0deploy\flann"
+@set INS_PARAM=-DCMAKE_INSTALL_PREFIX:PATH="%XL_DEPLOY_FLANN_DIR%"
 @set CBD_PARAM=-DCMAKE_BUILD_TYPE=Release
 @set BD_PARAM=-DFLANN_LIB_INSTALL_DIR="lib"
 @set MD_PARAM=-DBUILD_MATLAB_BINDINGS:BOOL=OFF -DBUILD_PYTHON_BINDINGS:BOOL=OFF

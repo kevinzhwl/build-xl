@@ -2,9 +2,19 @@
 
 @echo build qhull start...
 
-@set SRCDIR=../qhull-6.2.0.1385
+@if "%XL_DEPLOY_QHULL_DIR%" =="" (
+    @echo XL_DEPLOY_QHULL_DIR is empty
+    @goto end
+)
+
+@if not exist "%XL_QHULL_DIR%" (
+    @echo XL_QHULL_DIR is not existed
+    @goto end
+)
+
+@set SRCDIR=%XL_QHULL_DIR%
 @set CL_PARAM=-DMSVC90=1 -DCMAKE_MAKE_PROGRAM:PATH="%VCINSTALLDIR%\bin\nmake.exe" 
-@set INS_PARAM=-DCMAKE_INSTALL_PREFIX:PATH="%~dp0deploy\qhull"
+@set INS_PARAM=-DCMAKE_INSTALL_PREFIX:PATH="%XL_DEPLOY_QHULL_DIR%"
 @set CBD_PARAM=-DCMAKE_BUILD_TYPE=Release
 @set BD_PARAM=
 @set MD_PARAM=

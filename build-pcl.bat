@@ -1,11 +1,27 @@
 
-@echo build pcl start...
 @call build-vars.bat
 
-@set SRCDIR=../pcl-1.6.0
+@echo build pcl start...
+
+@if "%XL_DEPLOY_PCL_DIR%" =="" (
+    @echo XL_DEPLOY_PCL_DIR is empty
+    @goto end
+)
+
+@if not exist "%XL_DEPT_DIR%" (
+    @echo XL_DEPT_DIR is not existed
+    @goto end
+)
+
+@if not exist "%XL_PCL_DIR%" (
+    @echo XL_PCL_DIR is not existed
+    @goto end
+)
+
+@set SRCDIR=%XL_PCL_DIR%
 @set CL_PARAM=-DMSVC90=1 -DCMAKE_MAKE_PROGRAM:PATH="%VCINSTALLDIR%\bin\nmake.exe" 
-@set BD_PARAM=-DSEG_THIRDPARTY_ROOT_DIR="C:\pcl\3rdParty-x64-vc90"
-@set DP_PARAM=-DCMAKE_INSTALL_PREFIX:PATH="%~dp0deploy\pcl"
+@set BD_PARAM=-DSEG_THIRDPARTY_ROOT_DIR="%XL_DEPT_DIR%"
+@set DP_PARAM=-DCMAKE_INSTALL_PREFIX:PATH="%XL_DEPLOY_PCL_DIR%"
 @set PCL_PARAM=-DPCL_SHARED_LIBS=ON
 
 @if "%1"=="" (

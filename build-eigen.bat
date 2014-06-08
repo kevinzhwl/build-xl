@@ -2,9 +2,19 @@
 
 @echo build eigen start...
 
-@set SRCDIR=../eigen-3.0.7
+@if "%XL_DEPLOY_EIGEN_DIR%" =="" (
+    @echo XL_DEPLOY_EIGEN_DIR is empty
+    @goto end
+)
+
+@if not exist "%XL_EIGEN_DIR%" (
+    @echo XL_EIGEN_DIR is not existed
+    @goto end
+)
+
+@set SRCDIR=%XL_EIGEN_DIR%
 @set CL_PARAM=-DMSVC90=1 -DCMAKE_MAKE_PROGRAM:PATH="%VCINSTALLDIR%\bin\nmake.exe" 
-@set INS_PARAM=-DCMAKE_INSTALL_PREFIX:PATH="%~dp0deploy\eigen"
+@set INS_PARAM=-DCMAKE_INSTALL_PREFIX:PATH="%XL_DEPLOY_EIGEN_DIR%"
 @set CBD_PARAM=-DCMAKE_BUILD_TYPE=Release
 @set BD_PARAM=
 @set MD_PARAM=

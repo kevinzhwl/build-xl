@@ -1,13 +1,23 @@
 
 @echo build boost by bjam start...
 
-@set SRCDIR=boost-cmake-1.49.0
-@set LYTDIR=boost-1_49
+@if "%XL_DEPLOY_BOOST_DIR%" =="" (
+    @echo XL_DEPLOY_BOOST_DIR is empty
+    @goto end
+)
+
+@if not exist "%XL_BOOST_DIR%" (
+    @echo XL_BOOST_DIR is not existed
+    @goto end
+)
+
+@set SRCDIR=%XL_BOOST_DIR%
+@set LYTDIR=%XL_BOOST_LYT_DIR%
 @set TOOLCHAIN=toolset=msvc-9.0 architecture=x86 address-model=64
 @set CL_PARAM=-DMSVC90=1 -DCMAKE_MAKE_PROGRAM:PATH="%VCINSTALLDIR%\bin\nmake.exe" 
-@set INS_PARAM=-DCMAKE_INSTALL_PREFIX:PATH="%~dp0deploy\boost"
+@set INS_PARAM=-DCMAKE_INSTALL_PREFIX:PATH="%XL_DEPLOY_BOOST_DIR%"
 @set CBD_PARAM=--without-python --without-mpi
-@set BD_PARAM=install --prefix="%~dp0deploy\boost" --build-type=complete --build-dir="%~dp0%BD_DIR%"
+@set BD_PARAM=install --prefix="%XL_DEPLOY_BOOST_DIR%" --build-type=complete --build-dir="%~dp0%BD_DIR%"
 
 @if "%1"=="" (
 	@call :BuildBjam
@@ -47,7 +57,9 @@
 
 @REM -----------------------------------------------------------------------
 :RemoveDirLayout
-@cd %~dp0deploy\boost
+@if %LYTDIR% =="" exit /B 0
+
+@cd %XL_DEPLOY_BOOST_DIR%
 @cd include
 @xcopy %LYTDIR%\*.* .\ /E/Y
 @rmdir /s/q %LYTDIR%

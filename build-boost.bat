@@ -2,9 +2,19 @@
 
 @echo build boost start...
 
-@set SRCDIR=../boost-cmake-1.49.0
+@if "%XL_DEPLOY_BOOST_DIR%" =="" (
+    @echo XL_DEPLOY_BOOST_DIR is empty
+    @goto end
+)
+
+@if not exist "%XL_BOOST_DIR%" (
+    @echo XL_BOOST_DIR is not existed
+    @goto end
+)
+
+@set SRCDIR=%XL_BOOST_DIR%
 @set CL_PARAM=-DMSVC90=1 -DCMAKE_MAKE_PROGRAM:PATH="%VCINSTALLDIR%\bin\nmake.exe" 
-@set INS_PARAM=-DCMAKE_INSTALL_PREFIX:PATH="%~dp0deploy\boost"
+@set INS_PARAM=-DCMAKE_INSTALL_PREFIX:PATH="%XL_DEPLOY_BOOST_DIR%"
 @set CBD_PARAM=-DCMAKE_BUILD_TYPE=Release
 @set BD_PARAM=-DLIBPREFIX=lib
 

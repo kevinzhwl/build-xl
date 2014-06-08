@@ -1,10 +1,21 @@
 @call build-vars.bat
 
-@REM set PATH=%PATH%;%VCINSTALLDIR%\redist\Debug_NonRedist\amd64\Microsoft.VC90.DebugCRT
 @echo build vtk start...
-@set SRCDIR=../VTK-5.8.0
+
+@if "%XL_DEPLOY_VTK_DIR%" =="" (
+    @echo XL_DEPLOY_VTK_DIR is empty
+    @goto end
+)
+
+@if not exist "%XL_VTK_DIR%" (
+    @echo XL_VTK_DIR is not existed
+    @goto end
+)
+
+@REM set PATH=%PATH%;%VCINSTALLDIR%\redist\Debug_NonRedist\amd64\Microsoft.VC90.DebugCRT
+@set SRCDIR=%XL_VTK_DIR%
 @set CL_PARAM=-DMSVC90=1 -DCMAKE_MAKE_PROGRAM:PATH="%VCINSTALLDIR%\bin\nmake.exe"
-@set INS_PARAM=-DCMAKE_INSTALL_PREFIX:PATH="%~dp0deploy\vtk"
+@set INS_PARAM=-DCMAKE_INSTALL_PREFIX:PATH="%XL_DEPLOY_VTK_DIR%"
 @set CBD_PARAM=-DCMAKE_BUILD_TYPE=Release
 @set BD_PARAM=
 @set MD_PARAM=-DBUILD_TESTING:BOOL=OFF
