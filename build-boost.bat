@@ -18,31 +18,38 @@
 @set CBD_PARAM=-DCMAKE_BUILD_TYPE=Release
 @set BD_PARAM=-DLIBPREFIX=lib
 
- 
+@call :RemoveLibMathCache
+
 @if "%1"=="" (
 	@set BD_DIR=build-boost-cmake.release
 	@set MD_PARAM=-DENABLE_STATIC_RUNTIME:BOOL=OFF
 	@call :BuildJob
+	@call :RemoveLibMathCache
 )
+
 @if "%1"=="release" (
 	@set BD_DIR=build-boost-cmake.release
 	@set MD_PARAM=-DENABLE_DEBUG:BOOL=OFF
 	@call :BuildJob
+	@call :RemoveLibMathCache
 )
 @if "%1"=="debug" (
 	@set BD_DIR=build-boost-cmake.debug
 	@set MD_PARAM=-DENABLE_RELEASE:BOOL=OFF
 	@call :BuildJob
+	@call :RemoveLibMathCache
 )
 @if "%1"=="relmini" (
 	@set BD_DIR=build-boost-cmake.relmini
 	@set MD_PARAM=-DENABLE_DEBUG:BOOL=OFF -DENABLE_SHARED:BOOL=OFF -DENABLE_STATIC_RUNTIME:BOOL=OFF
 	@call :BuildJob
+	@call :RemoveLibMathCache
 )
 @if "%1"=="debmini" (
 	@set BD_DIR=build-boost-cmake.debmini
 	@set MD_PARAM=-DENABLE_RELEASE:BOOL=OFF -DENABLE_SHARED:BOOL=OFF -DENABLE_STATIC_RUNTIME:BOOL=OFF
 	@call :BuildJob
+	@call :RemoveLibMathCache
 )
 
 @echo build boost end...
@@ -59,6 +66,21 @@
  
 @cd ..
 @rmdir /s/q %BD_DIR%
+@exit /B 0
+
+@REM -----------------------------------------------------------------------
+:RemoveLibMathCache
+@del %SRCDIR%\libs\math\config\CMakeCache.txt
+@del %SRCDIR%\libs\math\config\Makefile
+@del %SRCDIR%\libs\math\config\cmake_install.cmake
+@rmdir /s/q %SRCDIR%\libs\math\config\CMakeFiles
+
+@del %SRCDIR%\libs\math\config\has_long_double_support.exe.embed.manifest
+@del %SRCDIR%\libs\math\config\has_long_double_support.exe.resource.txt
+@del %SRCDIR%\libs\math\config\has_long_double_support.exe.embed.manifest.res
+@del %SRCDIR%\libs\math\config\has_long_double_support.exe.intermediate.manifest
+@del %SRCDIR%\libs\math\config\has_long_double_support.pdb
+
 @exit /B 0
 
 @REM -----------------------------------------------------------------------
