@@ -34,6 +34,12 @@
 @set BD_PARAM=-D_BIND_TO_CURRENT_VCLIBS_VERSION=1
 @set MD_PARAM=-DBUILD_TESTING:BOOL=OFF
 
+@if "%1"=="" (
+	@set BD_DIR=build-vtk-cmake.release
+	@set CBD_PARAM=-DCMAKE_BUILD_TYPE=Release
+	@call :BuildJob
+)
+
 @if "%1"=="release" (
 	@set BD_DIR=build-vtk-cmake.release
 	@set CBD_PARAM=-DCMAKE_BUILD_TYPE=Release
