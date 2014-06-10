@@ -2,6 +2,12 @@
 @call build-vars.bat
 
 @echo build pcl start...
+@if "%XL_BUILD_BATCHALL%" == "" (
+@set XL_PCL_DIR=%~dp0pcl.wc
+@set XL_DEPT_DIR=%~dp0deploy\3rd
+@set XL_DEPLOY_PCL_DIR=%~dp0deploy\pcl
+
+)
 
 @if "%XL_DEPLOY_PCL_DIR%" =="" (
     @echo XL_DEPLOY_PCL_DIR is empty

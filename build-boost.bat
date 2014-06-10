@@ -1,6 +1,11 @@
 @call build-vars.bat
 
 @echo build boost start...
+@if "%XL_BUILD_BATCHALL%" == "" (
+@set XL_BOOST_DIR=%~dp0boost-cmake-mp.wc
+@set XL_DEPLOY_BOOST_DIR=%~dp0deploy\3rd\boost
+
+)
 
 @if "%XL_DEPLOY_BOOST_DIR%" =="" (
     @echo XL_DEPLOY_BOOST_DIR is empty

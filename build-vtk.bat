@@ -1,6 +1,12 @@
 @call build-vars.bat
 
 @echo build vtk start...
+@if "%XL_BUILD_BATCHALL%" == "" (
+@set XL_VTK_DIR=%~dp0VTK-mp.wc
+@set XL_DEPLOY_VTK_DIR=%~dp0deploy\3rd\vtk
+
+@set XL_WORKAROUND_DIR=%~dp0workaround
+)
 
 @if "%XL_DEPLOY_VTK_DIR%" =="" (
     @echo XL_DEPLOY_VTK_DIR is empty

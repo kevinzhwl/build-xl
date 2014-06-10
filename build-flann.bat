@@ -2,6 +2,12 @@
 
 @echo build flann start...
 
+@if "%XL_BUILD_BATCHALL%" == "" (
+@set XL_FLANN_DIR=%~dp0flann-mp.wc
+@set XL_DEPLOY_FLANN_DIR=%~dp0deploy\3rd\flann
+
+)
+
 @if "%XL_DEPLOY_FLANN_DIR%" =="" (
     @echo XL_DEPLOY_EIGEN_DIR is empty
     @goto end

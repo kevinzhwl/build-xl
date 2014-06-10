@@ -1,6 +1,11 @@
 @call build-vars.bat
 
 @echo build qhull start...
+@if "%XL_BUILD_BATCHALL%" == "" (
+@set XL_QHULL_DIR=%~dp0qhull-mp.wc
+@set XL_DEPLOY_QHULL_DIR=%~dp0deploy\3rd\qhull
+
+)
 
 @if "%XL_DEPLOY_QHULL_DIR%" =="" (
     @echo XL_DEPLOY_QHULL_DIR is empty

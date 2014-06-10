@@ -1,7 +1,7 @@
 @echo build all pcl 3rdparty dependecies
 @echo build all by cmake
 
-@set XL_BUILD_ALL=YES
+@set XL_BUILD_BATCHALL=YES
 @set XL_FLANN_DIR=%~dp0flann-mp.wc
 @set XL_QHULL_DIR=%~dp0qhull-mp.wc
 @set XL_EIGEN_DIR=%~dp0eigen-mp.wc
@@ -61,7 +61,7 @@
 	@call build-vtk.bat debmini
 )
 
-@set XL_BUILD_ALL=
+@set XL_BUILD_BATCHALL=
 @set XL_FLANN_DIR=
 @set XL_QHULL_DIR=
 @set XL_EIGEN_DIR=

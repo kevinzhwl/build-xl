@@ -1,6 +1,11 @@
 @call build-vars.bat
 
 @echo build eigen start...
+@if "%XL_BUILD_BATCHALL%" == "" (
+@set XL_EIGEN_DIR=%~dp0eigen-mp.wc
+@set XL_DEPLOY_EIGEN_DIR=%~dp0deploy\3rd\eigen
+
+)
 
 @if "%XL_DEPLOY_EIGEN_DIR%" =="" (
     @echo XL_DEPLOY_EIGEN_DIR is empty
